@@ -95,11 +95,11 @@ class SMBUploader: ObservableObject {
             do {
                 // uploadItem streams the file from disk — avoids loading the whole
                 // video into memory at once (important for large files)
-                try await client.uploadItem(at: file.url, toPath: destPath) { [weak self] bytesSentThisChunk, totalSentForFile in
+                // Progress closure receives (bytesSent, totalBytesSent, totalBytesToSend)
+                // Return false from this closure to cancel the upload mid-file
+                try await client.uploadItem(at: file.url, toPath: destPath) { [weak self] _, totalBytesSentForFile, _ in
                     guard let self = self else { return false }
-                    // Update total bytes (fileStartBytes tracks where this file started)
-                    self.bytesUploaded = fileStartBytes + totalSentForFile
-                    // Return false to cancel the upload mid-file
+                    self.bytesUploaded = fileStartBytes + totalBytesSentForFile
                     return !self.cancelled
                 }
                 filesUploaded += 1
