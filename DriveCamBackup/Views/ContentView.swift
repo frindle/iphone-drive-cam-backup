@@ -1,10 +1,19 @@
 import SwiftUI
 
-/// The main screen. Shows:
-/// 1. A button to select the USB drive
-/// 2. Detected vehicle and file summary once a drive is selected
-/// 3. A Start Upload button
+/// Root view — wraps the Upload tab and Diagnostics tab in a TabView.
 struct ContentView: View {
+    var body: some View {
+        TabView {
+            UploadTab()
+                .tabItem { Label("Upload", systemImage: "icloud.and.arrow.up") }
+            DiagnosticsView()
+                .tabItem { Label("Diagnostics", systemImage: "magnifyingglass") }
+        }
+    }
+}
+
+/// The upload tab (previously ContentView's body).
+struct UploadTab: View {
 
     // SMB config loaded from UserDefaults
     @State private var config = SMBConfig.load()

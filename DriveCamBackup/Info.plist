@@ -22,6 +22,12 @@
 	<true/>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>Used to upload dashcam footage to your home NAS over SMB.</string>
+	<key>UISupportedExternalAccessoryProtocols</key>
+	<array/>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_smb._tcp</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
